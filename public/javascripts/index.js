@@ -59,7 +59,7 @@ function createChart() {
         series: [{
             type: "area",
             field: "temperature",
-            color: "#dd2c00"
+            color: "#ff5722"
         }]
     });
 
@@ -73,7 +73,7 @@ function createChart() {
         series: [{
             type: "area",
             field: "light",
-            color: "#b71c1c"
+            color: "#f44336"
         }]
     });
 
@@ -87,7 +87,7 @@ function createChart() {
         series: [{
             type: "area",
             field: "humidity",
-            color: "#1b5e20"
+            color: "#43a047"
         }]
     });
 
@@ -101,10 +101,59 @@ function createChart() {
         series: [{
             type: "area",
             field: "pressure",
-            color: "#311b92"
+            color: "#673ab7"
         }]
     });
 
+    // Create Chart
+    /*$("#chart").kendoChart({
+        theme: "material",
+        dataSource: sensorSource,
+        title: {
+            text: "Weather Sensor Data Over Time"
+        },
+        legend: {
+            position: "bottom"
+        },
+        seriesDefaults: {
+            type: "area",
+            area: {
+                line: {
+                    style: "smooth"
+                }
+            }
+        },
+        series: [{
+            field: 'light',
+            title: 'Light Level'
+        }, {
+            field: 'pressure',
+            title: 'Pressure'
+        }, {
+            field: 'humidity',
+            title: 'Humidity'
+        }, {
+            field: 'temperature',
+            title: 'Temperature'
+        }],
+        valueAxis: {
+            line: {
+                visible: false
+            },
+            axisCrossingValue: -10
+        },
+        categoryAxis: {
+            field: 'Created At',
+            majorGridLines: {
+                visible: false
+            }
+        },
+        tooltip: {
+            visible: true,
+            format: "{0}",
+            template: "#= series.name #: #= value #"
+        }
+    });*/
 }
 
 $.material.init();
