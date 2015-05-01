@@ -1,5 +1,50 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  div(class='panel panel-primary')
+    div(class='panel-heading')
+      h3(class='panel-title') Summary Data
+    div(class='panel-body')
+      div(id='main')
+        div(class='group')
+          h4
+            div(class='icon-preview')
+              i(class='mdi-file-cloud-upload')  Total Readings:
+                &nbsp;
+                span(class='title-large', data-bind='text: totalCount')
+          h4
+            div(class='icon-preview')
+              i(class='mdi-image-wb-sunny')  Temperature:
+                span(class='spark', id='temp-log')
+                &nbsp;
+                span(class='title-large', data-bind='text: latestTemp')
+                span(class='super') &deg;F
+          h4
+            div(class='icon-preview')
+              i(class='mdi-image-wb-incandescent')  Light Level:
+                span(class='spark', id='light-log')
+                &nbsp;
+                span(class='title-large', data-bind='text: latestLight')
+          h4
+            div(class='icon-preview')
+              i(class='mdi-social-whatshot')  Humidity:
+                span(class='spark', id='humidity-log')
+                &nbsp;
+                span(class='title-large', data-bind='text: latestHumidity')
+                span(class='super') &#37;
+          h4
+            div(class='icon-preview')
+              i(class='mdi-editor-vertical-align-center')  Pressure:
+                span(class='spark', id='pressure-log')
+                &nbsp;
+                span(class='title-large', data-bind='text: latestPressure')
+                span(class='super') MBar
+
+  div(class='panel panel-primary')
+    div(class='panel-heading')
+      h3(class='panel-title') Summary Data
+    div(class='panel-body')
+      div(class='demo-section k-content')
+        div(id='chart')
+
+  script(src='javascripts/index.js')

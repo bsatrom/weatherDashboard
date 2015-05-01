@@ -2,6 +2,44 @@ doctype html
 html
   head
     title= title
+
+    link(rel='stylesheet', href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css")
+    link(rel='stylesheet', href="/stylesheets/roboto.min.css")
+    link(rel='stylesheet', href="/stylesheets/material-fullpalette.min.css")
+    link(rel='stylesheet', href="/stylesheets/ripples.min.css")
+    link(rel='stylesheet', href="//fezvrasta.github.io/snackbarjs/dist/snackbar.min.css")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+
     link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/kendo.common-material.min.css')
+    link(rel='stylesheet', href='/stylesheets/kendo.material.min.css')
+    link(rel='stylesheet', href='/stylesheets/kendo.material.mobile.min.css')
+    link(rel='stylesheet', href='/stylesheets/kendo.dataviz.min.css')
+    link(rel='stylesheet', href='/stylesheets/kendo.dataviz.material.min.css')
+
+    script(src='javascripts/jquery.min.js')
+    script(src='javascripts/kendo.all.min.js')
+    script(src='javascripts/everlive.all.min.js')
+    script(src='javascripts/material.min.js')
+    script(src='javascripts/ripples.min.js')
   body
-    block content
+
+    div(class="header-panel shadow-z-2 bs-component")
+        div(class="navbar navbar-default")
+            div(class="navbar-header")
+                button(type="button", class="navbar-toggle", data-toggle="collapse", data-target=".navbar-responsive-collapse")
+                    span(class="icon-bar")
+                    span(class="icon-bar")
+                    span(class="icon-bar")
+                a(class="navbar-brand" href="#")
+                  div(class="icon-preview")
+                    i(class="mdi-action-trending-up")  Weather Sensors
+            div(class="navbar-collapse collapse navbar-responsive-collapse")
+                ul(class="nav navbar-nav")
+                    li(class="active")
+                      a(href="#") Home
+                    li
+                      a(href="https://github.com/bsatrom/weatherDashboard", target="_blank") GitHub Sample Code
+
+    div(class='container')
+      block content
