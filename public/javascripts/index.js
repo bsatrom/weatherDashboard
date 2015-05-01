@@ -105,6 +105,57 @@ function createChart() {
         }]
     });
 
+    // Create Chart
+    $("#chart").kendoChart({
+        theme: "material",
+        dataSource: sensorSource,
+        title: {
+            text: "Weather Sensor Data Over Time"
+        },
+        legend: {
+            position: "bottom"
+        },
+        seriesDefaults: {
+            type: "area",
+            area: {
+                line: {
+                    style: "smooth"
+                }
+            }
+        },
+        series: [{
+            field: 'light',
+            title: 'Light Level'
+        }, {
+            field: 'pressure',
+            title: 'Pressure'
+        }, {
+            field: 'humidity',
+            title: 'Humidity'
+        }, {
+            field: 'temperature',
+            title: 'Temperature'
+        }],
+        valueAxis: {
+            line: {
+                visible: false
+            },
+            axisCrossingValue: -10
+        },
+        categoryAxis: {
+            field: 'Created At',
+            majorGridLines: {
+                visible: false
+            }
+        },
+        tooltip: {
+            visible: true,
+            format: "{0}",
+            template: "#= series.name #: #= value #"
+        }
+    });
+}
+
 $.material.init();
 $(document).ready(createChart);
 
