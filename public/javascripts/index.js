@@ -8,10 +8,6 @@ var sensorSource = new kendo.data.DataSource({
   transport: {
     typeName: 'sensors'
   },
-  requestEnd: function(result) {
-    var res = result.response;
-    updateModel(res.count, res.result);
-  },
   schema: {
     model: {
       id: Everlive.idField,
@@ -27,7 +23,7 @@ var sensorSource = new kendo.data.DataSource({
   },
   serverSorting: true,
   sort: { field: 'CreatedAt', dir: 'asc'},
-  serverPaging: 1,
+  serverPaging: 'last',
   pageSize: 1000
 });
 
@@ -50,7 +46,7 @@ function updateModel(total, data) {
 
 function createCharts() {
     // Temp sparkline
-    $("#temp-log").kendoSparkline({
+    var tempLine = $("#temp-log").kendoSparkline({
         theme: "material",
         dataSource: sensorSource,
         tooltip: {
@@ -61,7 +57,7 @@ function createCharts() {
             field: "temperature",
             color: "#ff5722"
         }]
-    });
+    }).data("kendoChart");
 
     // Light Sparkline
     $("#light-log").kendoSparkline({
@@ -120,7 +116,7 @@ function createCharts() {
             xField: "temperature",
             yField: "light",
             tooltip: {
-                format: "{1} @ {0} &deg;F"
+                format: "Light {1} @ {0} &deg;F"
             }
         }, {
             name: "Humidity to Temperature",
@@ -128,7 +124,7 @@ function createCharts() {
             yField: "humidity",
             yAxis: "humidity",
             tooltip: {
-                format: "{1}% @ {0} &deg;F"
+                format: "Humidity {1}% @ {0} &deg;F"
             }
         }],
         xAxis: {
@@ -153,16 +149,19 @@ function createCharts() {
         }
     });
 
+    //var page = 2;
     setInterval(function() {
+      //sensorSource.page(page);
       sensorSource.read().then(function() {
         updateModel(sensorSource._pristineTotal, sensorSource.data());
+        tempLine.refresh();
+
+        //page++;
       });
-    }, 5000);
+    }, 10000);
 }
 
 $.material.init();
 $(document).ready(createCharts);
 
 kendo.bind($('#main'), viewModel);
-
-// TODO Add logic to read and update the source automatically every 5 seconds
