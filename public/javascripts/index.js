@@ -28,7 +28,7 @@ var sensorSource = new kendo.data.DataSource({
   serverSorting: true,
   sort: { field: 'CreatedAt', dir: 'asc'},
   serverPaging: 1,
-  pageSize: 50
+  pageSize: 1000
 });
 
 var viewModel = kendo.observable({
@@ -105,44 +105,34 @@ function createChart() {
         }]
     });
 
-    // HERE
     // Create Scatter Chart
     $("#chart").kendoChart({
-        title: {
-            text: "Last 50 Readings"
-        },
+        theme: "material",
         legend: {
             visible: false
         },
-        dataSource: {
-            data: sensorSource
-        },
+        dataSource:  sensorSource,
         seriesDefaults: {
-            type: "scatterLine",
-            scatterLine: {
-                width: 2
-            }
+            type: "scatter"
         },
         series: [{
-            name: "Power",
-            xField: "CreatedAt",
-            yField: "temperature",
+            name: "Light to Temperature",
+            xField: "temperature",
+            yField: "light",
             tooltip: {
-                format: "{1} @ {0}"
+                format: "{1} @ {0} &deg;F"
             }
-        }/*, {
-            name: "Torque",
-            xField: "rpm",
-            yField: "torque",
-            yAxis: "torque",
+        }, {
+            name: "Humidity to Temperature",
+            xField: "temperature",
+            yField: "humidity",
+            yAxis: "humidity",
             tooltip: {
-                format: "{1} lb-ft @ {0:N0} rpm"
+                format: "{1}% @ {0} &deg;F"
             }
         }],
         xAxis: {
-            title: "Engine rpm",
-            // Align torque axis to the right by specifying
-            // a crossing value greater than or equal to the axis maximum.
+            title: "Temperature",
             axisCrossingValues: [0, 10000],
             labels: {
                 format: "N0"
@@ -150,68 +140,18 @@ function createChart() {
         },
         yAxes: [{
             title: {
-                text: "Power (bhp)"
+                text: "Light Level"
             }
         }, {
-            name: "torque",
+            name: "humidity",
             title: {
-                text: "Torque (lb-ft)"
+                text: "Humidity (Bar)"
             }
-        }*/],
+        }],
         tooltip: {
             visible: true
         }
     });
-
-    // Create Chart
-    /*$("#chart").kendoChart({
-        theme: "material",
-        dataSource: sensorSource,
-        title: {
-            text: "Weather Sensor Data Over Time"
-        },
-        legend: {
-            position: "bottom"
-        },
-        seriesDefaults: {
-            type: "area",
-            area: {
-                line: {
-                    style: "smooth"
-                }
-            }
-        },
-        series: [{
-            field: "light",
-            title: "Light Level"
-        }, {
-            field: "pressure",
-            title: "Pressure"
-        }, {
-            field: "humidity",
-            title: "Humidity"
-        }, {
-            field: "temperature",
-            title: "Temperature"
-        }],
-        valueAxis: {
-            line: {
-                visible: false
-            },
-            axisCrossingValue: -10
-        },
-        categoryAxis: {
-            field: 'CreatedAt',
-            majorGridLines: {
-                visible: false
-            }
-        },
-        tooltip: {
-            visible: true,
-            format: "{0}",
-            template: "#= series.name #: #= value #"
-        }
-    });*/
 }
 
 $.material.init();
