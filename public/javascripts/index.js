@@ -27,8 +27,8 @@ var sensorSource = new kendo.data.DataSource({
   },
   serverSorting: true,
   sort: { field: 'CreatedAt', dir: 'asc'},
-  //serverPaging: 1,
-  //pageSize: 10000
+  serverPaging: 1,
+  pageSize: 50
 });
 
 var viewModel = kendo.observable({
@@ -105,6 +105,64 @@ function createChart() {
         }]
     });
 
+    // HERE
+    // Create Scatter Chart
+    $("#chart").kendoChart({
+        title: {
+            text: "Last 50 Readings"
+        },
+        legend: {
+            visible: false
+        },
+        dataSource: {
+            data: sensorSource
+        },
+        seriesDefaults: {
+            type: "scatterLine",
+            scatterLine: {
+                width: 2
+            }
+        },
+        series: [{
+            name: "Power",
+            xField: "CreatedAt",
+            yField: "temperature",
+            tooltip: {
+                format: "{1} @ {0}"
+            }
+        }/*, {
+            name: "Torque",
+            xField: "rpm",
+            yField: "torque",
+            yAxis: "torque",
+            tooltip: {
+                format: "{1} lb-ft @ {0:N0} rpm"
+            }
+        }],
+        xAxis: {
+            title: "Engine rpm",
+            // Align torque axis to the right by specifying
+            // a crossing value greater than or equal to the axis maximum.
+            axisCrossingValues: [0, 10000],
+            labels: {
+                format: "N0"
+            }
+        },
+        yAxes: [{
+            title: {
+                text: "Power (bhp)"
+            }
+        }, {
+            name: "torque",
+            title: {
+                text: "Torque (lb-ft)"
+            }
+        }*/],
+        tooltip: {
+            visible: true
+        }
+    });
+
     // Create Chart
     /*$("#chart").kendoChart({
         theme: "material",
@@ -124,17 +182,17 @@ function createChart() {
             }
         },
         series: [{
-            field: 'light',
-            title: 'Light Level'
+            field: "light",
+            title: "Light Level"
         }, {
-            field: 'pressure',
-            title: 'Pressure'
+            field: "pressure",
+            title: "Pressure"
         }, {
-            field: 'humidity',
-            title: 'Humidity'
+            field: "humidity",
+            title: "Humidity"
         }, {
-            field: 'temperature',
-            title: 'Temperature'
+            field: "temperature",
+            title: "Temperature"
         }],
         valueAxis: {
             line: {
@@ -143,7 +201,7 @@ function createChart() {
             axisCrossingValue: -10
         },
         categoryAxis: {
-            field: 'Created At',
+            field: 'CreatedAt',
             majorGridLines: {
                 visible: false
             }
