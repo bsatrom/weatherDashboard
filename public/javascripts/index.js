@@ -48,7 +48,7 @@ function updateModel(total, data) {
   viewModel.set("latestPressure", Math.round(data[last].pressure/1000));
 }
 
-function createChart() {
+function createCharts() {
     // Temp sparkline
     $("#temp-log").kendoSparkline({
         theme: "material",
@@ -152,10 +152,16 @@ function createChart() {
             visible: true
         }
     });
+
+    setInterval(function() {
+      sensorSource.read().then(function() {
+        updateModel(sensorSource._pristineTotal, sensorSource.data());
+      });
+    }, 5000);
 }
 
 $.material.init();
-$(document).ready(createChart);
+$(document).ready(createCharts);
 
 kendo.bind($('#main'), viewModel);
 
